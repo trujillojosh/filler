@@ -1,58 +1,53 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_grid.c                                         :+:      :+:    :+:   */
+/*   get_piece.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jtrujill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/07/15 14:02:54 by jtrujill          #+#    #+#             */
-/*   Updated: 2017/07/15 14:03:06 by jtrujill         ###   ########.fr       */
+/*   Created: 2017/07/15 15:50:19 by jtrujill          #+#    #+#             */
+/*   Updated: 2017/07/15 16:56:36 by jtrujill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/filler.h"
 
-static char			**lst_to_map(t_list *lst, int h)
+static char	**lst_to_piece(t_list *lst, int h)
 {
-	int		i;
-	char	*temp;
-	char 	**grid;
+	char	**piece;
+	int 	i;
 
 	i = 0;
-	grid = (char **)malloc(sizeof(char *) * (h + 1));
+	piece = (char **)malloc(sizeof(char *) * (h + 1));
 	while (i < h)
 	{
-		temp = ft_strdup(lst->content);
-		while ((*temp != '.') && (*temp != '\0'))
-			temp++;
-		grid[i] = ft_strdup(temp);
-		// ft_strdel(&temp); //why the fuck does this break
+		piece[i] = ft_strdup(lst->content);
 		lst = lst->next;
 		i++;
 	}
-	grid[i] = NULL;
+	piece[i] = NULL;
 	i = 0;
-	ft_putstr_err("\n\nmap start\n\n");
+	ft_putstr_err("\n\npiece start\n\n");
 	while (i < h)
 	{
-		ft_putstr_err(grid[i]);
+		ft_putstr_err(piece[i]);
 		ft_putstr_err("\n");
 		i++;
 	}
-	ft_putstr_err("\n\nmap end\n\n");
-	return (grid);
+	ft_putstr_err("\n\npiece end\n\n");
+	return (piece);
 }
 
-char				**get_grid(t_list *lst)
+char		**get_piece(t_list *lst)
 {
-	char	**grid;
+	char	**piece;
 	char	*tmp;
-	int 	h;
-
+	int		h;
+	
 	while (lst)
 	{
 		tmp = ft_strdup(lst->content);
-		if ((tmp[0] == 'P') && (tmp[1] == 'l'))
+		if ((tmp[0] == 'P') && (tmp[1] == 'i'))
 			break ;
 		ft_strdel(&tmp);
 		lst = lst->next;
@@ -63,8 +58,6 @@ char				**get_grid(t_list *lst)
 		tmp++;
 	h = ft_atoi(tmp);
 	lst = lst->next;
-	lst = lst->next;
-	grid = lst_to_map(lst, h);
-	return (grid);
-	// fprintf(stderr, "\n\ntmp is %s\nh is %d, w is %d\n\n", tmp, h, w);
+	piece = lst_to_piece(lst, h);
+	return (piece);
 }

@@ -19,7 +19,11 @@
 typedef	struct 			s_map
 {
 	char				**grid;
+	char				**piece;
 	int					**grade;
+	int					player;
+	int 				h;
+	int					w;
 
 }						t_map;
 
@@ -27,5 +31,7 @@ int		filler_main(void);
 t_map	get_map(void);
 char	**get_grid(t_list *lst);
 t_list	*get_list(void);
+char	**get_piece(t_list *lst);
+int 	**get_grade(t_map map);
 
 #endif
