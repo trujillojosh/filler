@@ -12,26 +12,26 @@
 
 #include "../includes/filler.h"
 
-void		print_2d_err(int **res, t_map map)
-{
-	int		i;
-	int		j;
+// void		print_2d_err(int **res, t_map map)
+// {
+// 	int		i;
+// 	int		j;
 
-	i = 0;
-	fprintf(stderr, "\n\n2d arr print\n\n");
-	while (i < map.h)
-	{
-		j = 0;
-		while (j < map.w)
-		{
-			fprintf(stderr, "%d ", res[i][j]);
-			j++;
-		}
-		fprintf(stderr, "\n");
-		i++;
-	}
-	fprintf(stderr, "\n\nended 2d arr print\n\n");
-}
+// 	i = 0;
+// 	// fprintf(stderr, "\n\n2d arr print\n\n");
+// 	while (i < map.h)
+// 	{
+// 		j = 0;
+// 		while (j < map.w)
+// 		{
+// 			// fprintf(stderr, "%d ", res[i][j]);
+// 			j++;
+// 		}
+// 		// fprintf(stderr, "\n");
+// 		i++;
+// 	}
+// 	// fprintf(stderr, "\n\nended 2d arr print\n\n");
+// }
 
 int			**get_grade(t_map map)
 {
@@ -50,8 +50,8 @@ int			**get_grade(t_map map)
 			res[i][j] = 0;
 			j++;
 		}
-		i++;
+	i++;
 	}
-	print_2d_err(res, map);
+	// print_2d_err(res, map);
 	return (res);
 }

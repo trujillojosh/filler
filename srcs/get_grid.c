@@ -12,6 +12,22 @@
 
 #include "../includes/filler.h"
 
+static char 		*lowercase(char *input)
+{
+	int		i;
+	char 	*res;
+
+	i = 0;
+	res = ft_strdup(input);
+	while (res[i] != '\0')
+	{
+		if ((res[i] == 'O') || (res[i] == 'X'))
+			res[i] = ft_tolower(res[i]);
+		i++;
+	}
+	return (res);
+}
+
 static char			**lst_to_map(t_list *lst, int h)
 {
 	int		i;
@@ -25,7 +41,7 @@ static char			**lst_to_map(t_list *lst, int h)
 		temp = ft_strdup(lst->content);
 		while ((*temp != '.') && (*temp != '\0'))
 			temp++;
-		grid[i] = ft_strdup(temp);
+		grid[i] = lowercase(temp);
 		// ft_strdel(&temp); //why the fuck does this break
 		lst = lst->next;
 		i++;

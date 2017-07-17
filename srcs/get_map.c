@@ -38,9 +38,9 @@ static int	get_dimensions(t_list *lst, int opt)
 		tmp++;
 		h = ft_atoi(tmp);
 	}
-	ft_putstr_err("\n\n h == ");
-	ft_putstr_err(ft_itoa(h));
-	ft_putstr_err("\n\n");
+	// ft_putstr_err("\n\n h == ");
+	// ft_putstr_err(ft_itoa(h));
+	// ft_putstr_err("\n\n");
 	return (h);
 }
 
@@ -69,21 +69,21 @@ static int	get_player(t_list *lst)
 	if (!tmp)
 		return (0);
 	i = *tmp == '1' ? 1 : 2;
-	ft_putstr_err("\n\n i == ");
-	ft_putstr_err(ft_itoa(i));
-	ft_putstr_err("\n\n");
+	// ft_putstr_err("\n\n i == ");
+	// ft_putstr_err(ft_itoa(i));
+	// ft_putstr_err("\n\n");
 	return (i);
 }
 
-void		print_lst_error(t_list *list)
-{
-	while (list)
-	{
-		ft_putstr_err(list->content);
-		ft_putstr_err("\n");
-		list = list->next;
-	}
-}
+// void		print_lst_error(t_list *list)
+// {
+// 	while (list)
+// 	{
+// 		ft_putstr_err(list->content);
+// 		ft_putstr_err("\n");
+// 		list = list->next;
+// 	}
+// }
 
 t_map			get_map(void)
 {
@@ -93,10 +93,14 @@ t_map			get_map(void)
 	lst = get_list();
 	map.h = get_dimensions(lst, 1);
 	map.w = get_dimensions(lst, 2);
+	map.player = get_player(lst);
 	map.grid = get_grid(lst);
 	map.piece = get_piece(lst);
-	map.player = get_player(lst);
+	map.sx = shift_value(map, 0);
+	map.sy = shift_value(map, 1);
 	map.grade = get_grade(map);
-	print_lst_error(lst);
+	map.place = get_place(map);
+	fprintf(stderr, "\n\nmap stats\nh == %d, w == %d\n\n", map.h, map.w);
+	// print_lst_error(lst);
 	return (map);
 }
