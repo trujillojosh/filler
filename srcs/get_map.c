@@ -47,9 +47,12 @@ static int	get_dimensions(t_list *lst, int opt)
 static int	get_player(t_list *lst)
 {
 	char	*tmp;
-	int 	i;
+	static int 	i = 0;
+	static int 	j = 0;
 
-	i = 0;
+	if (j > 0)
+		return (i);
+	j++;
 	while (lst)
 	{
 		tmp = ft_strdup(lst->content);
@@ -95,12 +98,12 @@ t_map			get_map(void)
 	map.w = get_dimensions(lst, 2);
 	map.player = get_player(lst);
 	map.grid = get_grid(lst);
-	map.piece = get_piece(lst);
+	map.piece = get_piece(lst, map);
 	map.sx = shift_value(map, 0);
 	map.sy = shift_value(map, 1);
 	map.grade = get_grade(map);
-	map.place = get_place(map);
-	fprintf(stderr, "\n\nmap stats\nh == %d, w == %d\n\n", map.h, map.w);
+	//map.place = get_place(map);
+	// fprintf(stderr, "\n\nmap stats\nh == %d, w == %d\n\n", map.h, map.w);
 	// print_lst_error(lst);
 	return (map);
 }

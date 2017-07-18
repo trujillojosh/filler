@@ -34,7 +34,7 @@ int		filler_main(void);
 t_map	get_map(void);
 char	**get_grid(t_list *lst);
 t_list	*get_list(void);
-char	**get_piece(t_list *lst);
+char	**get_piece(t_list *lst, t_map map);
 int 	**get_grade(t_map map);
 int		shift_value(t_map map, int mode);
 char 	**get_place(t_map map);

@@ -12,11 +12,14 @@
 
 #include "../includes/filler.h"
 
-static char	**lst_to_piece(t_list *lst, int h)
+static char	**lst_to_piece(t_list *lst, t_map map, int h)
 {
 	char	**piece;
 	int 	i;
-
+	int 	j;
+	char 	c;
+	
+	c = map.player == 1 ? 'o' : 'x';
 	i = 0;
 	piece = (char **)malloc(sizeof(char *) * (h + 1));
 	while (i < h)
@@ -26,6 +29,18 @@ static char	**lst_to_piece(t_list *lst, int h)
 		i++;
 	}
 	piece[i] = NULL;
+	i = 0;
+	while (i < h)
+	{
+		j = 0;
+		while (piece[i][j] != '\0')
+		{
+			if (piece[i][j] == '*')
+				piece[i][j] = c;
+			j++;
+		}
+		i++;
+	}
 	i = 0;
 	ft_putstr_err("\n\npiece start\n\n");
 	while (i < h)
@@ -38,7 +53,7 @@ static char	**lst_to_piece(t_list *lst, int h)
 	return (piece);
 }
 
-char		**get_piece(t_list *lst)
+char		**get_piece(t_list *lst, t_map map)
 {
 	char	**piece;
 	char	*tmp;
@@ -58,6 +73,6 @@ char		**get_piece(t_list *lst)
 		tmp++;
 	h = ft_atoi(tmp);
 	lst = lst->next;
-	piece = lst_to_piece(lst, h);
+	piece = lst_to_piece(lst, map, h);
 	return (piece);
 }

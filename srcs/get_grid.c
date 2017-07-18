@@ -78,8 +78,11 @@ char				**get_grid(t_list *lst)
 	while ((ft_isdigit(*tmp) == 0) && (*tmp != '\0'))
 		tmp++;
 	h = ft_atoi(tmp);
+	fprintf(stderr, "\nfirst grid lst ==: %s\n", lst->content);
 	lst = lst->next;
+	fprintf(stderr, "\nfirst grid lst ==: %s\n", lst->content);
 	lst = lst->next;
+	fprintf(stderr, "\nfirst grid lst ==: %s\n", lst->content);
 	grid = lst_to_map(lst, h);
 	return (grid);
 	// fprintf(stderr, "\n\ntmp is %s\nh is %d, w is %d\n\n", tmp, h, w);

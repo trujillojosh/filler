@@ -12,6 +12,42 @@
 
 #include "../includes/filler.h"
 
+// int 	line_fit(t_map map, int i, int j, int a)
+// {
+// 	int 	b;
+// 	int 	c;
+
+// 	b = 0;
+// 	c = 0;
+// 	while (b < (int)ft_strlen(map.piece[a]))
+// 	{
+// 		if ((j + b) >= (int)ft_strlen(map.grid[i]))
+// 			return (-1);
+// 		else if (map.piece[a][b] != '.')
+// 		{
+// 			if (map.grid[i][j + b] != '.')
+// 				c++;
+// 		}
+// 		else
+// 		{
+// 			if (map.grid[i][j + b] != '.')
+// 				return (-1);
+// 		}
+// 		b++;
+// 	}
+// 	return (c);
+// }
+
+char	player_char(t_map map, char test)
+{
+	if ((map.player == 1) && (test == 'o'))
+		return (1);
+	else if ((map.player == 2) && (test == 'x'))
+		return (1);
+	else
+		return (0);
+}
+
 int 	line_fit(t_map map, int i, int j, int a)
 {
 	int 	b;
@@ -19,25 +55,53 @@ int 	line_fit(t_map map, int i, int j, int a)
 
 	b = 0;
 	c = 0;
-	while (b < (int)ft_strlen(map.piece[a]))
+	i = i + a;
+	if (i >= map.h)
+		return (-1);
+	while (map.piece[a][b] != '\0')
 	{
-		if ((j + b) >= (int)ft_strlen(map.grid[i]))
-			return (-1);
-		else if (map.piece[a][b] != '.')
+		if ((j + b) >= (int)ft_strlen(map.grid[a]))
 		{
-			if (map.grid[i][j + b] != '.')
-				c++;
+			if ((i == 8) && (j == 2))
+				fprintf(stderr, "	failed cause too long\n");
+			return (-1);
 		}
-		else
+		else if (player_char(map, map.grid[i][j + b]) == 1)
+		{
+			if (player_char(map, map.piece[a][b]) == 1)
+			{
+				c++;
+			}
+			else
+			{
+				return (-1);
+			}
+		}
+		else if (player_char(map, map.piece[a][b]) == 1)
 		{
 			if (map.grid[i][j + b] != '.')
 				return (-1);
 		}
 		b++;
 	}
-	return (c);
+	// while (b < (int)ft_strlen(map.piece[a]))
+	// {
+	// 	if ((j + b) >= (int)ft_strlen(map.grid[i]))
+	// 		return (-1);
+	// 	else if (player_char(map, map.piece[a][b]) == 1)
+	// 	{
+	// 		if (player_char(map, map.grid[i][j + b]) == 1)
+	// 			c++;
+	// 	}
+	// 	b++;
+	// }
+	if ((c == 0) || (c == 1))
+		return (c);
+	return (-1);
+	//the idea here is to compare piece[a] to grid[i] to check for valid placement
+	//Must have ONE and ONLY ONE match over all 4 pieces so should probably return connect
+	//if any exist
 }
-
 int		can_fit(t_map map, int i, int j)
 {
 	int 	a;
@@ -49,6 +113,7 @@ int		can_fit(t_map map, int i, int j)
 	c = 0;
 	while (map.piece[a] != NULL)
 	{
+		// fprintf(stderr, "\na == %d\n", a);
 		if (c > 1)
 			return (-1);
 		if (line_fit(map, i, j, a) >= 0)
@@ -68,9 +133,10 @@ int		*solver(t_map map)
 	int		j;
 
 	i = 0;
+	fprintf(stderr, "\nentered solver\n");
 	while (map.grid[i] != NULL)
 	{
-		j = map.sx;
+		j = 0;
 		// fprintf(stderr, "\n\nfucking i == %d\n", i);
 		while (j < (int)ft_strlen(map.grid[i]))
 		{
@@ -83,8 +149,6 @@ int		*solver(t_map map)
 				tmp[1] = j;
 				return (tmp);
 			}
-			else if ((i == 3) && (j == 3))
-				fprintf(stderr, "\n\nfailed on 3, 3\n\n");
 			// else
 			// 	fprintf(stderr, "no place on i == %d\n", i);
 			//fprintf(stderr, "no on (%d, %d)\n", j, i);
