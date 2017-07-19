@@ -18,6 +18,7 @@ static char 		*lowercase(char *input)
 	char 	*res;
 
 	i = 0;
+	//fprintf(stderr, "\nlower is    %s\n", input);
 	res = ft_strdup(input);
 	while (res[i] != '\0')
 	{
@@ -39,23 +40,26 @@ static char			**lst_to_map(t_list *lst, int h)
 	while (i < h)
 	{
 		temp = ft_strdup(lst->content);
-		while ((*temp != '.') && (*temp != '\0'))
+		//fprintf(stderr, "\ntemp is %s\n", temp);
+		while ((*temp != ' ') && (*temp != '\0'))
 			temp++;
+		temp++;
 		grid[i] = lowercase(temp);
+		//fprintf(stderr, "\ngrid[i] is %s\n", temp);
 		// ft_strdel(&temp); //why the fuck does this break
 		lst = lst->next;
 		i++;
 	}
 	grid[i] = NULL;
-	i = 0;
-	ft_putstr_err("\n\nmap start\n\n");
-	while (i < h)
-	{
-		ft_putstr_err(grid[i]);
-		ft_putstr_err("\n");
-		i++;
-	}
-	ft_putstr_err("\n\nmap end\n\n");
+	// i = 0;
+	// ft_putstr_err("\n\nmap start\n\n");
+	// while (i < h)
+	// {
+	// 	ft_putstr_err(grid[i]);
+	// 	ft_putstr_err("\n");
+	// 	i++;
+	// }
+	// ft_putstr_err("\n\nmap end\n\n");
 	return (grid);
 }
 
@@ -78,12 +82,8 @@ char				**get_grid(t_list *lst)
 	while ((ft_isdigit(*tmp) == 0) && (*tmp != '\0'))
 		tmp++;
 	h = ft_atoi(tmp);
-	fprintf(stderr, "\nfirst grid lst ==: %s\n", lst->content);
 	lst = lst->next;
-	fprintf(stderr, "\nfirst grid lst ==: %s\n", lst->content);
 	lst = lst->next;
-	fprintf(stderr, "\nfirst grid lst ==: %s\n", lst->content);
 	grid = lst_to_map(lst, h);
 	return (grid);
-	// fprintf(stderr, "\n\ntmp is %s\nh is %d, w is %d\n\n", tmp, h, w);
 }

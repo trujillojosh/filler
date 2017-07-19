@@ -22,7 +22,8 @@ int		main(void)
 		solve = solver(map);
 		if (solve == NULL)
 		{
-			fprintf(stderr, "\n\n\n\nno fucking solution\n\n\n");
+			ft_printf("%d %d\n", 0, 0);
+			// fprintf(stderr, "\n\n\n\nno fucking solution\n\n\n");
 			return (0);
 		}
 		//solve[0] == y solve[1] == x
@@ -31,6 +32,10 @@ int		main(void)
 		//fprintf(stderr, "\n\nres is %d %d\n\n", (solve[1] - map.sx), (solve[0] - map.sy));
 		//ft_printf("%d %d\n", (solve[1] - map.sx), (solve[0] - map.sy));
 		ft_printf("%d %d\n", solve[0], solve[1]);
+		free(map.grid);
+		free(map.piece);
+		free(map.grade);
+		free(solve);
 	}
 	//ft_putstr_err("hello\n");
 	return (0);

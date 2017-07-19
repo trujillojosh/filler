@@ -62,8 +62,6 @@ int 	line_fit(t_map map, int i, int j, int a)
 	{
 		if ((j + b) >= (int)ft_strlen(map.grid[a]))
 		{
-			if ((i == 8) && (j == 2))
-				fprintf(stderr, "	failed cause too long\n");
 			return (-1);
 		}
 		else if (player_char(map, map.grid[i][j + b]) == 1)
@@ -72,10 +70,10 @@ int 	line_fit(t_map map, int i, int j, int a)
 			{
 				c++;
 			}
-			else
-			{
-				return (-1);
-			}
+			// else
+			// {
+			// 	return (-1);
+			// }
 		}
 		else if (player_char(map, map.piece[a][b]) == 1)
 		{
@@ -133,7 +131,7 @@ int		*solver(t_map map)
 	int		j;
 
 	i = 0;
-	fprintf(stderr, "\nentered solver\n");
+	// fprintf(stderr, "\nentered solver\n");
 	while (map.grid[i] != NULL)
 	{
 		j = 0;

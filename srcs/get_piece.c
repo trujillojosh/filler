@@ -42,14 +42,14 @@ static char	**lst_to_piece(t_list *lst, t_map map, int h)
 		i++;
 	}
 	i = 0;
-	ft_putstr_err("\n\npiece start\n\n");
-	while (i < h)
-	{
-		ft_putstr_err(piece[i]);
-		ft_putstr_err("\n");
-		i++;
-	}
-	ft_putstr_err("\n\npiece end\n\n");
+	// ft_putstr_err("\n\npiece start\n\n");
+	// while (i < h)
+	// {
+	// 	ft_putstr_err(piece[i]);
+	// 	ft_putstr_err("\n");
+	// 	i++;
+	// }
+	// ft_putstr_err("\n\npiece end\n\n");
 	return (piece);
 }
 

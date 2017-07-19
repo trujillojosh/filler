@@ -20,7 +20,6 @@ typedef	struct 			s_map
 {
 	char				**grid;
 	char				**piece;
-	char 				**place;
 	int					**grade;
 	int					player;
 	int 				h;

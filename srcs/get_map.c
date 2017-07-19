@@ -92,11 +92,14 @@ t_map			get_map(void)
 {
 	t_map		map;
 	t_list		*lst;
+	static int 	player = 0;
 
 	lst = get_list();
 	map.h = get_dimensions(lst, 1);
 	map.w = get_dimensions(lst, 2);
-	map.player = get_player(lst);
+	if (player == 0)
+		player = get_player(lst);
+	map.player = player;
 	map.grid = get_grid(lst);
 	map.piece = get_piece(lst, map);
 	map.sx = shift_value(map, 0);
