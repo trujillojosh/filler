@@ -20,7 +20,7 @@ int		main(void)
 	{
 		map = get_map();
 		solve = solver(map);
-		if (solve == NULL)
+		if ((solve[0] == -1) && (solve[1] == -1))
 		{
 			ft_printf("%d %d\n", 0, 0);
 			// fprintf(stderr, "\n\n\n\nno fucking solution\n\n\n");

@@ -12,32 +12,6 @@
 
 #include "../includes/filler.h"
 
-// int 	line_fit(t_map map, int i, int j, int a)
-// {
-// 	int 	b;
-// 	int 	c;
-
-// 	b = 0;
-// 	c = 0;
-// 	while (b < (int)ft_strlen(map.piece[a]))
-// 	{
-// 		if ((j + b) >= (int)ft_strlen(map.grid[i]))
-// 			return (-1);
-// 		else if (map.piece[a][b] != '.')
-// 		{
-// 			if (map.grid[i][j + b] != '.')
-// 				c++;
-// 		}
-// 		else
-// 		{
-// 			if (map.grid[i][j + b] != '.')
-// 				return (-1);
-// 		}
-// 		b++;
-// 	}
-// 	return (c);
-// }
-
 char	player_char(t_map map, char test)
 {
 	if ((map.player == 1) && (test == 'o'))
@@ -67,13 +41,7 @@ int 	line_fit(t_map map, int i, int j, int a)
 		else if (player_char(map, map.grid[i][j + b]) == 1)
 		{
 			if (player_char(map, map.piece[a][b]) == 1)
-			{
 				c++;
-			}
-			// else
-			// {
-			// 	return (-1);
-			// }
 		}
 		else if (player_char(map, map.piece[a][b]) == 1)
 		{
@@ -82,23 +50,9 @@ int 	line_fit(t_map map, int i, int j, int a)
 		}
 		b++;
 	}
-	// while (b < (int)ft_strlen(map.piece[a]))
-	// {
-	// 	if ((j + b) >= (int)ft_strlen(map.grid[i]))
-	// 		return (-1);
-	// 	else if (player_char(map, map.piece[a][b]) == 1)
-	// 	{
-	// 		if (player_char(map, map.grid[i][j + b]) == 1)
-	// 			c++;
-	// 	}
-	// 	b++;
-	// }
 	if ((c == 0) || (c == 1))
 		return (c);
 	return (-1);
-	//the idea here is to compare piece[a] to grid[i] to check for valid placement
-	//Must have ONE and ONLY ONE match over all 4 pieces so should probably return connect
-	//if any exist
 }
 int		can_fit(t_map map, int i, int j)
 {
@@ -125,34 +79,84 @@ int		can_fit(t_map map, int i, int j)
 	else
 		return (-1);
 }
+
+static int 	grader(t_map map, int i, int j)
+{
+	int 	grade;
+	int		a;
+	int 	b;
+
+	grade = 0;
+	a = 0;
+	// fprintf(stderr, "\n\nentered grader\n\n");
+	while (map.piece[a] != NULL)
+	{
+		b = 0;
+		while (map.piece[a][b] != '\0')
+		{
+			grade += map.grade[i][j + b];
+			b++;
+		}
+		a++;
+		i++;
+	}
+	// fprintf(stderr, "\n\nleft grader\n\n");
+	return (grade);
+}
+
 int		*solver(t_map map)
 {
 	int 	i;
 	int		j;
+	int 	*tmp;
+	int 	res;
 
 	i = 0;
-	// fprintf(stderr, "\nentered solver\n");
+	res = 0;
+	tmp = (int *)malloc(sizeof(int) * 2);
+	tmp[0] = 0;
+	tmp[1] = 0;
 	while (map.grid[i] != NULL)
 	{
 		j = 0;
-		// fprintf(stderr, "\n\nfucking i == %d\n", i);
 		while (j < (int)ft_strlen(map.grid[i]))
 		{
-			// fprintf(stderr, "	fucking j == %d\n", j);
 			if (can_fit(map, i, j) == 1)
 			{
 				//add result to list
-				int *tmp = (int *)malloc(sizeof(int) * 2);
-				tmp[0] = i;
-				tmp[1] = j;
-				return (tmp);
+				if ((tmp[0] == 0) && (tmp[1] == 0))
+				{
+					// fprintf(stderr, "\n\nentered\n\n");
+					tmp[0] = i;
+					tmp[1] = j;
+					res++;
+				}
+				else
+				{
+					if (grader(map, i, j) > grader(map, tmp[0], tmp[1]))
+					{
+						//fprintf(stderr, "\n\ngrader overwrite, old tmp == [%d][%d], grader == %d\n\n", tmp[0], tmp[1], grader(map, tmp[0], tmp[1]));
+						tmp[0] = i;
+						tmp[1] = j;
+						//fprintf(stderr, "\n\ngrader overwrite, new tmp == [%d][%d], grader == %d\n\n", i, j, grader(map, i, j));
+						// return (tmp);
+					}
+					// else
+					// {
+						//fprintf(stderr, "\n\nno overwrite, old tmp == [%d][%d], grader == %d\n\n", tmp[0], tmp[1], grader(map, tmp[0], tmp[1]));
+						//fprintf(stderr, "\n\nno overwrite, new tmp == [%d][%d], grader == %d\n\n", i, j, grader(map, i, j));
+					// }
+				}
 			}
-			// else
-			// 	fprintf(stderr, "no place on i == %d\n", i);
-			//fprintf(stderr, "no on (%d, %d)\n", j, i);
 			j++;
 		}
 		i++;
 	}
-	return (NULL);
+	if (res == 0)
+	{
+		tmp[0] = -1;
+		tmp[1] = -1;
+	}
+	// fprintf(stderr, "\n\ndidn't segfault\n\n");
+	return (tmp);
 }
