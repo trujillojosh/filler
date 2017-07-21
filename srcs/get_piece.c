@@ -6,7 +6,7 @@
 /*   By: jtrujill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/15 15:50:19 by jtrujill          #+#    #+#             */
-/*   Updated: 2017/07/15 16:56:36 by jtrujill         ###   ########.fr       */
+/*   Updated: 2017/07/20 17:13:10 by jtrujill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,41 +15,29 @@
 static char	**lst_to_piece(t_list *lst, t_map map, int h)
 {
 	char	**piece;
-	int 	i;
-	int 	j;
-	char 	c;
-	
-	c = map.player == 1 ? 'o' : 'x';
-	i = 0;
+	int		i;
+	int		j;
+
+	i = -1;
 	piece = (char **)malloc(sizeof(char *) * (h + 1));
-	while (i < h)
+	while (++i < h)
 	{
 		piece[i] = ft_strdup(lst->content);
 		lst = lst->next;
-		i++;
 	}
 	piece[i] = NULL;
-	i = 0;
-	while (i < h)
+	i = -1;
+	while (++i < h)
 	{
 		j = 0;
 		while (piece[i][j] != '\0')
 		{
 			if (piece[i][j] == '*')
-				piece[i][j] = c;
+				piece[i][j] = map.player == 1 ? 'o' : 'x';
 			j++;
 		}
-		i++;
 	}
-	i = 0;
-	// ft_putstr_err("\n\npiece start\n\n");
-	// while (i < h)
-	// {
-	// 	ft_putstr_err(piece[i]);
-	// 	ft_putstr_err("\n");
-	// 	i++;
-	// }
-	// ft_putstr_err("\n\npiece end\n\n");
+	print_piece(piece, h);
 	return (piece);
 }
 
@@ -58,7 +46,7 @@ char		**get_piece(t_list *lst, t_map map)
 	char	**piece;
 	char	*tmp;
 	int		h;
-	
+
 	while (lst)
 	{
 		tmp = ft_strdup(lst->content);

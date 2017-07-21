@@ -6,7 +6,7 @@
 /*   By: jtrujill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/14 22:00:20 by jtrujill          #+#    #+#             */
-/*   Updated: 2017/07/14 22:00:46 by jtrujill         ###   ########.fr       */
+/*   Updated: 2017/07/20 17:14:56 by jtrujill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static int	get_dimensions(t_list *lst, int opt)
 {
-	char 	*tmp;
+	char	*tmp;
 	int		h;
-	
+
 	while (lst)
 	{
 		tmp = ft_strdup(lst->content);
@@ -38,17 +38,14 @@ static int	get_dimensions(t_list *lst, int opt)
 		tmp++;
 		h = ft_atoi(tmp);
 	}
-	// ft_putstr_err("\n\n h == ");
-	// ft_putstr_err(ft_itoa(h));
-	// ft_putstr_err("\n\n");
 	return (h);
 }
 
 static int	get_player(t_list *lst)
 {
-	char	*tmp;
-	static int 	i = 0;
-	static int 	j = 0;
+	char		*tmp;
+	static int	i = 0;
+	static int	j = 0;
 
 	if (j > 0)
 		return (i);
@@ -61,8 +58,6 @@ static int	get_player(t_list *lst)
 		ft_strdel(&tmp);
 		lst = lst->next;
 	}
-	if (!tmp)
-		return (0);
 	while (*tmp != '\0')
 	{
 		if ((*tmp == '1') || (*tmp == '2'))
@@ -72,27 +67,14 @@ static int	get_player(t_list *lst)
 	if (!tmp)
 		return (0);
 	i = *tmp == '1' ? 1 : 2;
-	// ft_putstr_err("\n\n i == ");
-	// ft_putstr_err(ft_itoa(i));
-	// ft_putstr_err("\n\n");
 	return (i);
 }
 
-// void		print_lst_error(t_list *list)
-// {
-// 	while (list)
-// 	{
-// 		ft_putstr_err(list->content);
-// 		ft_putstr_err("\n");
-// 		list = list->next;
-// 	}
-// }
-
-t_map			get_map(void)
+t_map		get_map(void)
 {
 	t_map		map;
 	t_list		*lst;
-	static int 	player = 0;
+	static int	player = 0;
 
 	lst = get_list();
 	map.h = get_dimensions(lst, 1);
@@ -105,8 +87,5 @@ t_map			get_map(void)
 	map.sx = shift_value(map, 0);
 	map.sy = shift_value(map, 1);
 	map.grade = get_grade(map);
-	//map.place = get_place(map);
-	// fprintf(stderr, "\n\nmap stats\nh == %d, w == %d\n\n", map.h, map.w);
-	// print_lst_error(lst);
 	return (map);
 }

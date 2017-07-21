@@ -16,13 +16,13 @@ FLAGS = gcc -Wall -Wextra -Werror
 
 SRCS = srcs/filler_main.c srcs/get_map.c srcs/get_grid.c srcs/get_list.c \
 	   srcs/get_piece.c srcs/get_grade.c srcs/shift_value.c \
-	   srcs/alt_solve.c
+	   srcs/custom_print.c srcs/solver_assets.c srcs/solver.c
 
 all: $(NAME)
 
 $(NAME):
 	@make all -C libft
-	$(FLAGS) -o $(NAME) $(INC) $(SRCS) -L libft/ -lft -g
+	$(FLAGS) -o $(NAME) $(INC) $(SRCS) -L libft/ -lft
 
 clean:
 	@make clean -C libft

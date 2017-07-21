@@ -57,7 +57,8 @@ LIBFT_P = $(LP)ft_atoi.c $(LP)ft_bzero.c $(LP)ft_cd_freq.c \
 		  $(LP)ft_toupper.c $(LP)ft_uitoa_base.c $(LP)ft_uint_len_ext.c \
 		  $(LP)ft_ulitoa_base.c $(LP)ft_ullitoa_base.c $(LP)ft_umitoa_base.c \
 		  $(LP)ft_until.c $(LP)ft_usitoa_base.c $(LP)ft_wspace_check.c \
-		  $(LP)get_next_line.c $(LP)ft_llitoa_base.c $(LP)ft_putstr_err.c
+		  $(LP)get_next_line.c $(LP)ft_llitoa_base.c $(LP)ft_putstr_err.c \
+		  $(LP)ft_lstend.c
 
 SRCS = $(MAIN) $(CONV) $(SPEC) $(LIBFT_P)
 
@@ -84,7 +85,7 @@ OBJS = ft_is_over.o ft_itoa_dispatch.o ft_next_arg.o ft_printf.o \
 	   ft_tolower.o ft_toupper.o ft_uitoa_base.o ft_uint_len_ext.o \
 	   ft_ulitoa_base.o ft_ullitoa_base.o ft_umitoa_base.o ft_until.o \
 	   ft_usitoa_base.o ft_wspace_check.o get_next_line.o ft_llitoa_base.o \
-	   ft_putstr_err.o
+	   ft_putstr_err.o ft_lstend.o
 
 all: $(NAME)
 

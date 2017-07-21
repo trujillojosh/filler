@@ -6,7 +6,7 @@
 /*   By: jtrujill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/28 09:42:58 by jtrujill          #+#    #+#             */
-/*   Updated: 2017/07/14 18:32:28 by jtrujill         ###   ########.fr       */
+/*   Updated: 2017/07/20 17:37:08 by jtrujill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,5 +125,6 @@ char				*ft_umitoa_base(uintmax_t value, int base);
 char				*ft_titoa_base(size_t value, int base);
 char				*ft_llitoa_base(long long value, long long base);
 void				ft_putstr_err(const char *s);
+t_list				*ft_lstend(t_list *head, char *new);
 
 #endif
