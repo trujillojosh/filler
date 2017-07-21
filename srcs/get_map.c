@@ -83,9 +83,10 @@ t_map		get_map(void)
 		player = get_player(lst);
 	map.player = player;
 	map.grid = get_grid(lst);
-	map.piece = get_piece(lst, map);
+	map.init_piece = init_piece(lst, map);
 	map.sx = shift_value(map, 0);
 	map.sy = shift_value(map, 1);
 	map.grade = get_grade(map);
+	map.piece = get_piece(map);
 	return (map);
 }

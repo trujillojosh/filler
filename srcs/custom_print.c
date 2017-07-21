@@ -12,13 +12,13 @@
 
 #include "../includes/filler.h"
 
-void			print_piece(char **piece, int h)
+void			print_piece(char **piece)
 {
 	int		i;
 
 	i = 0;
 	ft_putstr_err("\n\nGiven Piece:\n\n");
-	while (i < h)
+	while (piece[i] != NULL)
 	{
 		ft_putstr_err(piece[i]);
 		ft_putstr_err("\n");

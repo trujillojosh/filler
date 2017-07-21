@@ -12,55 +12,40 @@
 
 #include "../includes/filler.h"
 
-static char	**lst_to_piece(t_list *lst, t_map map, int h)
+static char	*get_row(char *in, t_map map)
 {
-	char	**piece;
+	char	*res;
 	int		i;
 	int		j;
 
-	i = -1;
-	piece = (char **)malloc(sizeof(char *) * (h + 1));
-	while (++i < h)
+	i = 0;
+	j = map.sx[0];
+	res = ft_strnew(map.sx[1] - map.sx[0] + 2);
+	while (i < (map.sx[1] - map.sx[0] + 1))
 	{
-		piece[i] = ft_strdup(lst->content);
-		lst = lst->next;
+		res[i] = in[j];
+		i++;
+		j++;
 	}
-	piece[i] = NULL;
-	i = -1;
-	while (++i < h)
-	{
-		j = 0;
-		while (piece[i][j] != '\0')
-		{
-			if (piece[i][j] == '*')
-				piece[i][j] = map.player == 1 ? 'o' : 'x';
-			j++;
-		}
-	}
-	print_piece(piece, h);
-	return (piece);
+	res[i] = '\0';
+	return (res);
 }
 
-char		**get_piece(t_list *lst, t_map map)
+char		**get_piece(t_map map)
 {
-	char	**piece;
-	char	*tmp;
-	int		h;
+	int		i;
+	int		k;
+	char	**res;
 
-	while (lst)
+	res = (char **)malloc(sizeof(char *) * (map.sy[1] - map.sy[0] + 2));
+	i = 0;
+	k = map.sy[0];
+	while (i < (map.sy[1] - map.sy[0] + 1))
 	{
-		tmp = ft_strdup(lst->content);
-		if ((tmp[0] == 'P') && (tmp[1] == 'i'))
-			break ;
-		ft_strdel(&tmp);
-		lst = lst->next;
+		res[i] = get_row(map.init_piece[k], map);
+		i++;
+		k++;
 	}
-	if (!tmp)
-		return (NULL);
-	while ((ft_isdigit(*tmp) == 0) && (*tmp != '\0'))
-		tmp++;
-	h = ft_atoi(tmp);
-	lst = lst->next;
-	piece = lst_to_piece(lst, map, h);
-	return (piece);
+	res[i] = NULL;
+	return (res);
 }

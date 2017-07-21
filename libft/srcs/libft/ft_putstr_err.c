@@ -10,10 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../../includes/libft.h"
 
-void	ft_putstr_err(char const *s)
+static void	helper_p1(char s)
+{
+	write(2, "\x1b[31m", 5);
+	write(2, &s, 1);
+	write(2, "\x1b[0m", 4);
+}
+
+static void	helper_p2(char s)
+{
+	write(2, "\x1b[33m", 5);
+	write(2, &s, 1);
+	write(2, "\x1b[0m", 4);
+}
+
+void		ft_putstr_err(char const *s)
 {
 	int		i;
 
@@ -22,7 +35,12 @@ void	ft_putstr_err(char const *s)
 		return ;
 	while (s[i] != '\0')
 	{
-		write(2, &s[i], 1);
+		if (s[i] == 'o')
+			helper_p1(s[i]);
+		else if (s[i] == 'x')
+			helper_p2(s[i]);
+		else
+			write(2, &s[i], 1);
 		i++;
 	}
 }
